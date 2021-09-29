@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/1724c07b25.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>SheCodes Plus W5 Homework</title>
+  </head>
+
+  <body>
+    <div class="back-rectangle-one"></div>
+    <div class="back-rectangle-two"></div>
+    <div class="container">
+      <div class="row first-row">
+        <div class="col">
+          <h1 id="location">Mexico City</h1>
+          <h2 id="current-date">September 12, 3:45 pm</h2>
+        </div>
+        <div class="col search-input">
+          <form id="form">
+            <input
+              type="search"
+              class="search"
+              id="search-location"
+              placeholder="  Enter location"
+              autocomplete="off"
+            />
+            <input type="submit" value="Search" class="search-button" />
+            <button id="my-location">
+              <i class="fas fa-map-marker-alt"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col feels-like-temp">
+          Feels like <span id="feels-like-temp">21</span>°
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="actual-temp" id="actual-temperature">21</div>
+          <div class="grade-cent" id="celsius">°C</div>
+          <div class="grade-division">|</div>
+          <div class="grade-cent" id="fahrenheit">°F</div>
+        </div>
+        <div class="col actual-weather-icon">
+          <img src="images/cloud.svg" alt="Cloudy" class="weather-icon-big" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div>
+            <span>
+              <i class="fas fa-arrow-down temp-icon"></i>
+            </span>
+            <span class="lower-temp"><span id="min-temp">14</span>°</span>
+            <span>
+              <i class="fas fa-arrow-up temp-icon"></i>
+            </span>
+            <span class="max-temp"><span id="max-temp">21</span>°</span>
+          </div>
+        </div>
+        <div class="col weather-state" id="weather-description">Cloudy</div>
+      </div>
+      <br />
+      <div>
+        <div class="next-day-container container-one">
+          <div class="day">Mon</div>
+          <div class="icon-container">
+            <img
+              src="images/rain3.svg"
+              alt="Moslty Rainy"
+              class="weather-icon-small"
+            />
+          </div>
+          <div>
+            <span class="lower-temp-nextdays"
+              ><span id="min-temp-0">13</span>° /
+            </span>
+            <span class="max-temp-nextdays"
+              ><span id="max-temp-0">22</span>°
+            </span>
+          </div>
+        </div>
+        <div class="division"></div>
+        <div class="next-day-container">
+          <div class="day">Tue</div>
+          <div class="icon-container">
+            <img
+              src="images/rain2.svg"
+              alt="Rainy"
+              class="weather-icon-small"
+            />
+          </div>
+          <div>
+            <span class="lower-temp-nextdays"
+              ><span id="min-temp-1">14</span>° /
+            </span>
+            <span class="max-temp-nextdays"
+              ><span id="max-temp-1">24</span>°
+            </span>
+          </div>
+        </div>
+        <div class="division"></div>
+        <div class="next-day-container">
+          <div class="day">Wed</div>
+          <div class="icon-container">
+            <img
+              src="images/rain-thunders.svg"
+              alt="Scattered thunderstorms"
+              class="weather-icon-small"
+            />
+          </div>
+          <div>
+            <span class="lower-temp-nextdays"
+              ><span id="min-temp-2">14</span>° /
+            </span>
+            <span class="max-temp-nextdays"
+              ><span id="max-temp-2">24</span>°
+            </span>
+          </div>
+        </div>
+        <div class="division"></div>
+        <div class="next-day-container">
+          <div class="day">Thu</div>
+          <div class="icon-container">
+            <img
+              src="images/rain-thunders.svg"
+              alt="Scattered thunderstorms"
+              class="weather-icon-small"
+            />
+          </div>
+          <div>
+            <span class="lower-temp-nextdays"
+              ><span id="min-temp-3">14</span>° /
+            </span>
+            <span class="max-temp-nextdays"
+              ><span id="max-temp-3">24</span>°
+            </span>
+          </div>
+        </div>
+        <div class="division"></div>
+        <div class="next-day-container">
+          <div class="day">Fri</div>
+          <div class="icon-container">
+            <img
+              src="images/rain-thunders.svg"
+              alt="Scattered thunderstorms"
+              class="weather-icon-small"
+            />
+          </div>
+          <div>
+            <span class="lower-temp-nextdays"
+              ><span id="min-temp-4">14</span>° /
+            </span>
+            <span class="max-temp-nextdays"
+              ><span id="max-temp-4">23</span>°
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
