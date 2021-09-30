@@ -221,6 +221,10 @@ h2 {
   font-size: 14px;
 }
 
+#weather-description {
+  text-transform: capitalize;
+}
+
 .weather-icon-big {
   width: 50%;
   padding-top: 20px;
