@@ -87,6 +87,25 @@ h2 {
   margin-top: 60px;
 }
 
+.footer {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 60px;
+  color: #606470;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #79aad8;
+  transition: all 150ms ease-in-out;
+}
+
+.footer-link:hover {
+  text-decoration: none;
+  color: #aa79d8;
+  cursor: pointer;
+}
+
 .grade-cent {
   display: inline-block;
   position: relative;
