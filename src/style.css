@@ -221,7 +221,7 @@ h2 {
   font-size: 14px;
 }
 
-#weather-description {
+#weather-description:first-letter {
   text-transform: capitalize;
 }
 
