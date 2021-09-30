@@ -45,7 +45,7 @@ function showWeather(response) {
     response.data.main.temp_max
   );
   document.querySelector("#weather-description").innerHTML =
-    response.data.weather[0].main;
+    response.data.weather[0].description;
 }
 
 function search(location) {
