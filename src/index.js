@@ -46,6 +46,62 @@ function showWeather(response) {
   );
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
+
+  const actualTempIcon = document.getElementById("actual-temp-icon");
+  if (response.data.weather[0].icon === "01d") {
+    actualTempIcon.src = "images/clear-sky.svg";
+  }
+  if (response.data.weather[0].icon === "01n") {
+    actualTempIcon.src = "images/clear-sky-night.svg";
+  }
+  if (response.data.weather[0].icon === "02d") {
+    actualTempIcon.src = "images/few-clouds.svg";
+  }
+  if (response.data.weather[0].icon === "02n") {
+    actualTempIcon.src = "images/few-clouds-night.svg";
+  }
+  if (
+    response.data.weather[0].icon === "03d" ||
+    response.data.weather[0].icon === "03n"
+  ) {
+    actualTempIcon.src = "images/scattered-clouds.svg";
+  }
+  if (
+    response.data.weather[0].icon === "04d" ||
+    response.data.weather[0].icon === "04n"
+  ) {
+    actualTempIcon.src = "images/broken-clouds.svg";
+  }
+  if (
+    response.data.weather[0].icon === "09d" ||
+    response.data.weather[0].icon === "09n"
+  ) {
+    actualTempIcon.src = "images/shower-rain.svg";
+  }
+  if (response.data.weather[0].icon === "10d") {
+    actualTempIcon.src = "images/rain.svg";
+  }
+  if (response.data.weather[0].icon === "10n") {
+    actualTempIcon.src = "images/rain-night.svg";
+  }
+  if (
+    response.data.weather[0].icon === "11d" ||
+    response.data.weather[0].icon === "11n"
+  ) {
+    actualTempIcon.src = "images/thunderstorm.svg";
+  }
+  if (
+    response.data.weather[0].icon === "13d" ||
+    response.data.weather[0].icon === "13n"
+  ) {
+    actualTempIcon.src = "images/snow.svg";
+  }
+  if (response.data.weather[0].icon === "50d") {
+    actualTempIcon.src = "images/mist.svg";
+  }
+  if (response.data.weather[0].icon === "50n") {
+    actualTempIcon.src = "images/mist-night.svg";
+  }
 }
 
 function search(location) {
