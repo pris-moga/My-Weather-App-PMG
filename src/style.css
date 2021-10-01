@@ -30,7 +30,7 @@ h2 {
   /*background-color: #fcfcfc9f;*/
   background: linear-gradient(120deg, #ffffffbb, #fcfcfc28, #ffffffbb);
   width: 490px;
-  height: 260px;
+  height: 274px;
   border-radius: 15px;
   box-shadow: 3px 3px 20px rgba(1, 134, 175, 0.1);
   z-index: -1;
@@ -50,7 +50,7 @@ h2 {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0%);
-  top: 326px;
+  top: 337px;
 }
 
 .container {
@@ -219,6 +219,10 @@ h2 {
 .temp-icon {
   color: #9fa3af;
   font-size: 14px;
+}
+
+.temps-and-description {
+  margin-top: 13px;
 }
 
 #weather-description:first-letter {

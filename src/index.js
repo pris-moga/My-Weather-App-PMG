@@ -31,6 +31,9 @@ function currentDate(now) {
 
 // Search Location Engine
 function showWeather(response) {
+  const actualTempIcon = document.getElementById("actual-temp-icon");
+  let iconDescription = document.querySelector("#actual-temp-icon");
+
   document.querySelector("#location").innerHTML = response.data.name;
   document.querySelector("#actual-temperature").innerHTML = Math.round(
     response.data.main.temp
@@ -47,60 +50,73 @@ function showWeather(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
 
-  const actualTempIcon = document.getElementById("actual-temp-icon");
+  // weather icons
   if (response.data.weather[0].icon === "01d") {
     actualTempIcon.src = "images/clear-sky.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "01n") {
     actualTempIcon.src = "images/clear-sky-night.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "02d") {
     actualTempIcon.src = "images/few-clouds.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "02n") {
     actualTempIcon.src = "images/few-clouds-night.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (
     response.data.weather[0].icon === "03d" ||
     response.data.weather[0].icon === "03n"
   ) {
     actualTempIcon.src = "images/scattered-clouds.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (
     response.data.weather[0].icon === "04d" ||
     response.data.weather[0].icon === "04n"
   ) {
     actualTempIcon.src = "images/broken-clouds.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (
     response.data.weather[0].icon === "09d" ||
     response.data.weather[0].icon === "09n"
   ) {
     actualTempIcon.src = "images/shower-rain.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "10d") {
     actualTempIcon.src = "images/rain.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "10n") {
     actualTempIcon.src = "images/rain-night.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (
     response.data.weather[0].icon === "11d" ||
     response.data.weather[0].icon === "11n"
   ) {
     actualTempIcon.src = "images/thunderstorm.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (
     response.data.weather[0].icon === "13d" ||
     response.data.weather[0].icon === "13n"
   ) {
     actualTempIcon.src = "images/snow.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "50d") {
     actualTempIcon.src = "images/mist.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
   if (response.data.weather[0].icon === "50n") {
     actualTempIcon.src = "images/mist-night.svg";
+    iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
 }
 
