@@ -247,3 +247,10 @@ h2 {
 .weather-icon-small {
   width: 50%;
 }
+
+.wind {
+  font-size: 15px;
+  color: #606470;
+  text-align: right;
+  padding-top: 11px;
+}

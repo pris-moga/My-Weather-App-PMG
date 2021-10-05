@@ -31,6 +31,7 @@ function currentDate(now) {
 
 // Search Location Engine
 function showWeather(response) {
+  console.log(response.data.wind.speed);
   const actualTempIcon = document.getElementById("actual-temp-icon");
   let iconDescription = document.querySelector("#actual-temp-icon");
 
@@ -43,6 +44,7 @@ function showWeather(response) {
   document.querySelector("#actual-temperature").innerHTML = Math.round(
     response.data.main.temp
   );
+  document.querySelector("#wind").innerHTML = response.data.wind.speed;
   document.querySelector("#feels-like-temp").innerHTML = Math.round(
     response.data.main.feels_like
   );
