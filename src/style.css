@@ -26,8 +26,13 @@ h2 {
   text-align: right;
 }
 
+.background {
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  max-width: 100%;
+}
 .back-rectangle-one {
-  /*background-color: #fcfcfc9f;*/
   background: linear-gradient(120deg, #ffffffbb, #fcfcfc28, #ffffffbb);
   width: 490px;
   height: 274px;

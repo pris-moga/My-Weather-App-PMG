@@ -238,7 +238,7 @@ function showFahrenheit(event) {
   fahrenheit.classList.add("active");
 }
 
-// No functions section
+// Universal Variables
 let dateElement = document.querySelector("#current-date");
 let now = new Date();
 dateElement.innerHTML = currentDate(now);
