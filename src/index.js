@@ -34,6 +34,11 @@ function showWeather(response) {
   const actualTempIcon = document.getElementById("actual-temp-icon");
   let iconDescription = document.querySelector("#actual-temp-icon");
 
+  celsiusTemp = Math.round(response.data.main.temp);
+  celsiusMinTemp = Math.round(response.data.main.temp_min);
+  celsiusMaxTemp = Math.round(response.data.main.temp_max);
+  celsiusFeelsLike = Math.round(response.data.main.feels_like);
+
   document.querySelector("#location").innerHTML = response.data.name;
   document.querySelector("#actual-temperature").innerHTML = Math.round(
     response.data.main.temp
@@ -200,6 +205,40 @@ function forecast(event) {
 }
 */
 
+// °C & °F
+function showCelsius(event) {
+  event.preventDefault();
+  let temperature = document.querySelector(".actual-temp");
+  temperature.innerHTML = celsiusTemp;
+  let minTemperature = document.querySelector("#min-temp");
+  minTemperature.innerHTML = celsiusMinTemp;
+  let maxTemperature = document.querySelector("#max-temp");
+  maxTemperature.innerHTML = celsiusMaxTemp;
+  let feelsLikeTemperature = document.querySelector("#feels-like-temp");
+  feelsLikeTemperature.innerHTML = celsiusFeelsLike;
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
+}
+
+function showFahrenheit(event) {
+  event.preventDefault();
+  let temperature = document.querySelector(".actual-temp");
+  let fahrenheitTemperature = Math.round((celsiusTemp * 9) / 5 + 32);
+  temperature.innerHTML = fahrenheitTemperature;
+  let minTemperature = document.querySelector("#min-temp");
+  let fahrenheitMinTemperature = Math.round((celsiusMinTemp * 9) / 5 + 32);
+  minTemperature.innerHTML = fahrenheitMinTemperature;
+  let maxTemperature = document.querySelector("#max-temp");
+  let fahrenheitMaxTemperature = Math.round((celsiusMaxTemp * 9) / 5 + 32);
+  maxTemperature.innerHTML = fahrenheitMaxTemperature;
+  let feelsLikeTemperature = document.querySelector("#feels-like-temp");
+  let fahrenheitFeelsLikeTemp = Math.round((celsiusFeelsLike * 9) / 5 + 32);
+  feelsLikeTemperature.innerHTML = fahrenheitFeelsLikeTemp;
+  celsius.classList.remove("active");
+  fahrenheit.classList.add("active");
+}
+
+// No functions section
 let dateElement = document.querySelector("#current-date");
 let now = new Date();
 dateElement.innerHTML = currentDate(now);
@@ -216,21 +255,11 @@ search("Mexico City");
 
 //forecastLocation("Mexico City");
 
-// °C & °F
-/*
-function showCelsius() {
-  let temperature = document.querySelector(".actual-temp");
-  temperature.innerHTML = 21;
-}
-
-function showFahrenheit() {
-  let temperature = document.querySelector(".actual-temp");
-  let fahrenheitTemperature = Math.round((21 * 9) / 5 + 32);
-  temperature.innerHTML = fahrenheitTemperature;
-}
-
+let celsiusTemp = null;
+let celsiusMinTemp = null;
+let celsiusMaxTemp = null;
+let celsiusFeelsLike = null;
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", showCelsius);
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", showFahrenheit);
-*/

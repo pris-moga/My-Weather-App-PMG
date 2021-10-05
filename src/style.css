@@ -114,12 +114,17 @@ h2 {
   font-weight: 300;
   color: #606470;
   transition: all 150ms ease-in-out;
+  text-decoration: none;
 }
 
 .grade-cent:hover {
   color: #494b52;
   font-weight: 500;
   cursor: pointer;
+}
+
+.grade-cent.active {
+  font-weight: 500;
 }
 
 .grade-division {
