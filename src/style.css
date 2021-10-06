@@ -62,23 +62,11 @@ h2 {
   max-width: 460px;
 }
 
-.container-one {
-  margin-left: 5px;
-}
-
 .day {
   color: #323643;
   font-size: 15px;
   font-weight: 700;
   padding-bottom: 10px;
-}
-
-.division {
-  display: inline-block;
-  width: 2px;
-  height: 95px;
-  background-color: #60647018;
-  margin: 0 auto;
 }
 
 .feels-like-temp,
@@ -245,7 +233,7 @@ h2 {
 }
 
 .weather-icon-small {
-  width: 50%;
+  width: 90%;
 }
 
 .wind {
