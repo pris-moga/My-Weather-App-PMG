@@ -153,7 +153,41 @@ function actualPosition(position) {
   axios.get(urlCoords).then(showWeather);
 }
 
-// Future Forecast
+// Forecast
+
+function displayForecast() {
+  let forecast = document.querySelector("#forecast");
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2 next-day-container">
+        <div class="day">${day}</div>
+        <div class="icon-container">
+          <img
+            src="images/shower-rain.svg"
+            alt="Moslty Rainy"
+            class="weather-icon-small"
+          />
+        </div>
+        <div>
+          <span class="lower-temp-nextdays"
+            ><span id="min-temp-0">13</span>° /
+          </span>
+          <span class="max-temp-nextdays"
+            ><span id="max-temp-0">22</span>°
+          </span>
+        </div>
+      </div>
+      `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecast.innerHTML = forecastHTML;
+}
+/*
 function showWeatherForecast(response) {
   document.querySelector("#min-temp-0").innerHTML = Math.round(
     response.data.daily[0].temp.min
@@ -194,7 +228,7 @@ function actualPositionForecast(position) {
   axios.get(urlForecast).then(showWeatherForecast);
 }
 
-/*
+
 function forecastLocation(location) {
   let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?${location}&exclude=daily&appid=${apiKey}&units=metric`;
   axios.get(urlForecast).then(showWeatherForecast);
@@ -255,6 +289,7 @@ myLocation.addEventListener("click", currentLocation);
 
 search("Mexico City");
 
+displayForecast();
 //forecastLocation("Mexico City");
 
 let celsiusTemp = null;
