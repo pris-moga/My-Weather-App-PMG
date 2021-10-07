@@ -31,7 +31,6 @@ function currentDate(now) {
 
 // Search Location Engine
 function showWeather(response) {
-  console.log(response.data.wind.speed);
   const actualTempIcon = document.getElementById("actual-temp-icon");
   let iconDescription = document.querySelector("#actual-temp-icon");
 
@@ -57,7 +56,7 @@ function showWeather(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
 
-  // weather icons
+  // Weather icons
   if (response.data.weather[0].icon === "01d") {
     actualTempIcon.src = "images/clear-sky.svg";
     iconDescription.setAttribute("alt", response.data.weather[0].description);
@@ -125,6 +124,9 @@ function showWeather(response) {
     actualTempIcon.src = "images/mist-night.svg";
     iconDescription.setAttribute("alt", response.data.weather[0].description);
   }
+
+  // Call de Forecast Function
+  getForecast(response.data.coord);
 }
 
 function search(location) {
@@ -143,7 +145,6 @@ function searchLocation(event) {
 
 function currentLocation() {
   navigator.geolocation.getCurrentPosition(actualPosition);
-  navigator.geolocation.getCurrentPosition(actualPositionForecast);
 }
 
 function actualPosition(position) {
@@ -154,92 +155,126 @@ function actualPosition(position) {
 }
 
 // Forecast
+function forecastDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
 
-function displayForecast() {
+function displayForecast(response) {
+  let forecastInfo = response.data.daily;
   let forecast = document.querySelector("#forecast");
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  const forecastTempIcon = document.getElementById("forecast-temp-icon");
+  let iconDescription = document.querySelector("#forecast-temp-icon");
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecastInfo.forEach(function (forecastDay, index) {
+    console.log(forecastDay);
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2 next-day-container">
-        <div class="day">${day}</div>
+        <div class="day">${forecastDate(forecastDay.dt)}</div>
         <div class="icon-container">
           <img
-            src="images/shower-rain.svg"
+            src="images/clear-sky.svg"
             alt="Moslty Rainy"
             class="weather-icon-small"
+            id="forecast-temp-icon"
           />
         </div>
         <div>
           <span class="lower-temp-nextdays"
-            ><span id="min-temp-0">13</span>° /
+            ><span id="min-temp-0">${Math.round(forecastDay.temp.min)}</span>° /
           </span>
           <span class="max-temp-nextdays"
-            ><span id="max-temp-0">22</span>°
+            ><span id="max-temp-0">${Math.round(forecastDay.temp.max)}</span>°
           </span>
         </div>
       </div>
       `;
-  });
+    }
 
+    // Weather icons
+    /*
+    if (forecastDay.weather[0].icon === "01d") {
+      forecastTempIcon.src = "images/clear-sky.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "01n") {
+      forecastTempIcon.src = "images/clear-sky-night.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "02d") {
+      forecastTempIcon.src = "images/few-clouds.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "02n") {
+      forecastTempIcon.src = "images/few-clouds-night.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (
+      forecastDay.weather[0].icon === "03d" ||
+      forecastDay.weather[0].icon === "03n"
+    ) {
+      forecastTempIcon.src = "images/scattered-clouds.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (
+      forecastDay.weather[0].icon === "04d" ||
+      forecastDay.weather[0].icon === "04n"
+    ) {
+      forecastTempIcon.src = "images/broken-clouds.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (
+      forecastDay.weather[0].icon === "09d" ||
+      forecastDay.weather[0].icon === "09n"
+    ) {
+      forecastTempIcon.src = "images/shower-rain.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "10d") {
+      forecastTempIcon.src = "images/rain.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "10n") {
+      forecastTempIcon.src = "images/rain-night.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (
+      forecastDay.weather[0].icon === "11d" ||
+      forecastDay.weather[0].icon === "11n"
+    ) {
+      forecastTempIcon.src = "images/thunderstorm.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (
+      forecastDay.weather[0].icon === "13d" ||
+      forecastDay.weather[0].icon === "13n"
+    ) {
+      forecastTempIcon.src = "images/snow.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "50d") {
+      forecastTempIcon.src = "images/mist.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    if (forecastDay.weather[0].icon === "50n") {
+      forecastTempIcon.src = "images/mist-night.svg";
+      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
+    }
+    */
+  });
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
 }
-/*
-function showWeatherForecast(response) {
-  document.querySelector("#min-temp-0").innerHTML = Math.round(
-    response.data.daily[0].temp.min
-  );
-  document.querySelector("#max-temp-0").innerHTML = Math.round(
-    response.data.daily[0].temp.max
-  );
-  document.querySelector("#min-temp-1").innerHTML = Math.round(
-    response.data.daily[1].temp.min
-  );
-  document.querySelector("#max-temp-1").innerHTML = Math.round(
-    response.data.daily[1].temp.max
-  );
-  document.querySelector("#min-temp-2").innerHTML = Math.round(
-    response.data.daily[2].temp.min
-  );
-  document.querySelector("#max-temp-2").innerHTML = Math.round(
-    response.data.daily[2].temp.max
-  );
-  document.querySelector("#min-temp-3").innerHTML = Math.round(
-    response.data.daily[3].temp.min
-  );
-  document.querySelector("#max-temp-3").innerHTML = Math.round(
-    response.data.daily[3].temp.max
-  );
-  document.querySelector("#min-temp-4").innerHTML = Math.round(
-    response.data.daily[4].temp.min
-  );
-  document.querySelector("#max-temp-4").innerHTML = Math.round(
-    response.data.daily[4].temp.max
-  );
-}
 
-function actualPositionForecast(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current&appid=${apiKey}&units=metric`;
-  axios.get(urlForecast).then(showWeatherForecast);
+function getForecast(coordinates) {
+  let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(urlForecast).then(displayForecast);
 }
-
-
-function forecastLocation(location) {
-  let urlForecast = `https://api.openweathermap.org/data/2.5/onecall?${location}&exclude=daily&appid=${apiKey}&units=metric`;
-  axios.get(urlForecast).then(showWeatherForecast);
-}
-
-function forecast(event) {
-  event.preventDefault();
-  let location = document.querySelector("#search-location").value;
-  forecastLocation(location);
-}
-*/
 
 // °C & °F
 function showCelsius(event) {
@@ -282,15 +317,12 @@ dateElement.innerHTML = currentDate(now);
 let apiKey = "bb0df6985c2eab6a171d64a6bacbb4e1";
 
 let form = document.querySelector("#form");
-form.addEventListener("submit", searchLocation /*forecast*/);
+form.addEventListener("submit", searchLocation);
 
 let myLocation = document.querySelector("#my-location");
 myLocation.addEventListener("click", currentLocation);
 
 search("Mexico City");
-
-displayForecast();
-//forecastLocation("Mexico City");
 
 let celsiusTemp = null;
 let celsiusMinTemp = null;
