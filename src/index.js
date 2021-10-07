@@ -169,7 +169,7 @@ function displayForecast(response) {
   let iconDescription = document.querySelector("#forecast-temp-icon");
   let forecastHTML = `<div class="row">`;
   forecastInfo.forEach(function (forecastDay, index) {
-    if (index < 5) {
+    if (index > 0 && index < 6) {
       forecastHTML =
         forecastHTML +
         `
