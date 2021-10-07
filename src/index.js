@@ -169,7 +169,6 @@ function displayForecast(response) {
   let iconDescription = document.querySelector("#forecast-temp-icon");
   let forecastHTML = `<div class="row">`;
   forecastInfo.forEach(function (forecastDay, index) {
-    console.log(forecastDay);
     if (index < 5) {
       forecastHTML =
         forecastHTML +
@@ -196,8 +195,7 @@ function displayForecast(response) {
       `;
     }
 
-    // Weather icons
-    /*
+    // Forecast - Weather icons
     if (forecastDay.weather[0].icon === "01d") {
       forecastTempIcon.src = "images/clear-sky.svg";
       iconDescription.setAttribute("alt", forecastDay.weather[0].description);
@@ -265,7 +263,6 @@ function displayForecast(response) {
       forecastTempIcon.src = "images/mist-night.svg";
       iconDescription.setAttribute("alt", forecastDay.weather[0].description);
     }
-    */
   });
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
