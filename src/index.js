@@ -12,7 +12,7 @@ function currentDate(now) {
     "September",
     "October",
     "November",
-    "Decemper",
+    "December",
   ];
   let month = months[now.getMonth()];
   let date = now.getDate();
@@ -31,8 +31,7 @@ function currentDate(now) {
 
 // Search Location Engine
 function showWeather(response) {
-  const actualTempIcon = document.getElementById("actual-temp-icon");
-  let iconDescription = document.querySelector("#actual-temp-icon");
+  let actualTempIcon = document.querySelector("#actual-temp-icon");
 
   celsiusTemp = Math.round(response.data.main.temp);
   celsiusMinTemp = Math.round(response.data.main.temp_min);
@@ -56,76 +55,11 @@ function showWeather(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
 
-  // Weather icons
-  if (response.data.weather[0].icon === "01d") {
-    actualTempIcon.src = "images/clear-sky.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "01n") {
-    actualTempIcon.src = "images/clear-sky-night.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "02d") {
-    actualTempIcon.src = "images/few-clouds.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "02n") {
-    actualTempIcon.src = "images/few-clouds-night.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (
-    response.data.weather[0].icon === "03d" ||
-    response.data.weather[0].icon === "03n"
-  ) {
-    actualTempIcon.src = "images/scattered-clouds.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (
-    response.data.weather[0].icon === "04d" ||
-    response.data.weather[0].icon === "04n"
-  ) {
-    actualTempIcon.src = "images/broken-clouds.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (
-    response.data.weather[0].icon === "09d" ||
-    response.data.weather[0].icon === "09n"
-  ) {
-    actualTempIcon.src = "images/shower-rain.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "10d") {
-    actualTempIcon.src = "images/rain.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "10n") {
-    actualTempIcon.src = "images/rain-night.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (
-    response.data.weather[0].icon === "11d" ||
-    response.data.weather[0].icon === "11n"
-  ) {
-    actualTempIcon.src = "images/thunderstorm.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (
-    response.data.weather[0].icon === "13d" ||
-    response.data.weather[0].icon === "13n"
-  ) {
-    actualTempIcon.src = "images/snow.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "50d") {
-    actualTempIcon.src = "images/mist.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
-  if (response.data.weather[0].icon === "50n") {
-    actualTempIcon.src = "images/mist-night.svg";
-    iconDescription.setAttribute("alt", response.data.weather[0].description);
-  }
+  // Call Weather icons
+  actualTempIcon.setAttribute("src", getIcon(response.data.weather[0].icon));
+  actualTempIcon.setAttribute("alt", response.data.weather[0].description);
 
-  // Call de Forecast Function
+  // Call the Forecast Function
   getForecast(response.data.coord);
 }
 
@@ -154,6 +88,53 @@ function actualPosition(position) {
   axios.get(urlCoords).then(showWeather);
 }
 
+// Wheather Icons
+function getIcon(iconCode) {
+  let icon = "";
+
+  if (iconCode === "01d") {
+    icon = "images/clear-sky.svg";
+  }
+  if (iconCode === "01n") {
+    icon = "images/clear-sky-night.svg";
+  }
+  if (iconCode === "02d") {
+    icon = "images/few-clouds.svg";
+  }
+  if (iconCode === "02n") {
+    icon = "images/few-clouds-night.svg";
+  }
+  if (iconCode === "03d" || iconCode === "03n") {
+    icon = "images/scattered-clouds.svg";
+  }
+  if (iconCode === "04d" || iconCode === "04n") {
+    icon = "images/broken-clouds.svg";
+  }
+  if (iconCode === "09d" || iconCode === "09n") {
+    icon = "images/shower-rain.svg";
+  }
+  if (iconCode === "10d") {
+    icon = "images/rain.svg";
+  }
+  if (iconCode === "10n") {
+    icon = "images/rain-night.svg";
+  }
+  if (iconCode === "11d" || iconCode === "11n") {
+    icon = "images/thunderstorm.svg";
+  }
+  if (iconCode === "13d" || iconCode === "13n") {
+    icon = "images/snow.svg";
+  }
+  if (iconCode === "50d") {
+    icon = "images/mist.svg";
+  }
+  if (iconCode === "50n") {
+    icon = "images/mist-night.svg";
+  }
+
+  return icon;
+}
+
 // Forecast
 function forecastDate(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -165,8 +146,6 @@ function forecastDate(timestamp) {
 function displayForecast(response) {
   let forecastInfo = response.data.daily;
   let forecast = document.querySelector("#forecast");
-  const forecastTempIcon = document.getElementById("forecast-temp-icon");
-  let iconDescription = document.querySelector("#forecast-temp-icon");
   let forecastHTML = `<div class="row">`;
   forecastInfo.forEach(function (forecastDay, index) {
     if (index > 0 && index < 6) {
@@ -177,8 +156,8 @@ function displayForecast(response) {
         <div class="day">${forecastDate(forecastDay.dt)}</div>
         <div class="icon-container">
           <img
-            src="images/clear-sky.svg"
-            alt="Moslty Rainy"
+            src="${getIcon(forecastDay.weather[0].icon)}"
+            alt="${forecastDay.weather[0].description}"
             class="weather-icon-small"
             id="forecast-temp-icon"
           />
@@ -193,75 +172,6 @@ function displayForecast(response) {
         </div>
       </div>
       `;
-    }
-
-    // Forecast - Weather icons
-    if (forecastDay.weather[0].icon === "01d") {
-      forecastTempIcon.src = "images/clear-sky.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "01n") {
-      forecastTempIcon.src = "images/clear-sky-night.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "02d") {
-      forecastTempIcon.src = "images/few-clouds.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "02n") {
-      forecastTempIcon.src = "images/few-clouds-night.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (
-      forecastDay.weather[0].icon === "03d" ||
-      forecastDay.weather[0].icon === "03n"
-    ) {
-      forecastTempIcon.src = "images/scattered-clouds.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (
-      forecastDay.weather[0].icon === "04d" ||
-      forecastDay.weather[0].icon === "04n"
-    ) {
-      forecastTempIcon.src = "images/broken-clouds.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (
-      forecastDay.weather[0].icon === "09d" ||
-      forecastDay.weather[0].icon === "09n"
-    ) {
-      forecastTempIcon.src = "images/shower-rain.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "10d") {
-      forecastTempIcon.src = "images/rain.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "10n") {
-      forecastTempIcon.src = "images/rain-night.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (
-      forecastDay.weather[0].icon === "11d" ||
-      forecastDay.weather[0].icon === "11n"
-    ) {
-      forecastTempIcon.src = "images/thunderstorm.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (
-      forecastDay.weather[0].icon === "13d" ||
-      forecastDay.weather[0].icon === "13n"
-    ) {
-      forecastTempIcon.src = "images/snow.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "50d") {
-      forecastTempIcon.src = "images/mist.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
-    }
-    if (forecastDay.weather[0].icon === "50n") {
-      forecastTempIcon.src = "images/mist-night.svg";
-      iconDescription.setAttribute("alt", forecastDay.weather[0].description);
     }
   });
   forecastHTML = forecastHTML + `</div>`;
