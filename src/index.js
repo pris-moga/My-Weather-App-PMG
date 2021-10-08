@@ -149,6 +149,9 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
   forecastInfo.forEach(function (forecastDay, index) {
     if (index > 0 && index < 6) {
+      forecastTemp.minTemp[index] = Math.round(forecastDay.temp.min);
+      forecastTemp.maxTemp[index] = Math.round(forecastDay.temp.max);
+
       forecastHTML =
         forecastHTML +
         `
@@ -164,10 +167,14 @@ function displayForecast(response) {
         </div>
         <div>
           <span class="lower-temp-nextdays"
-            ><span id="min-temp-0">${Math.round(forecastDay.temp.min)}</span>° /
+            ><span id="min-temp-forecast${index}">${Math.round(
+          forecastDay.temp.min
+        )}</span>° /
           </span>
           <span class="max-temp-nextdays"
-            ><span id="max-temp-0">${Math.round(forecastDay.temp.max)}</span>°
+            ><span id="max-temp-forecast${index}">${Math.round(
+          forecastDay.temp.max
+        )}</span>°
           </span>
         </div>
       </div>
@@ -186,32 +193,66 @@ function getForecast(coordinates) {
 // °C & °F
 function showCelsius(event) {
   event.preventDefault();
+
   let temperature = document.querySelector(".actual-temp");
   temperature.innerHTML = celsiusTemp;
+
   let minTemperature = document.querySelector("#min-temp");
   minTemperature.innerHTML = celsiusMinTemp;
+
   let maxTemperature = document.querySelector("#max-temp");
   maxTemperature.innerHTML = celsiusMaxTemp;
+
   let feelsLikeTemperature = document.querySelector("#feels-like-temp");
   feelsLikeTemperature.innerHTML = celsiusFeelsLike;
+
+  for (let i = 1; i < 6; i++) {
+    let forecasteTempMin = document.querySelector(`#min-temp-forecast${i}`);
+    forecasteTempMin.innerHTML = `${Math.round(forecastTemp.minTemp[i])}`;
+  }
+
+  for (let i = 1; i < 6; i++) {
+    let forecasteTempMax = document.querySelector(`#max-temp-forecast${i}`);
+    forecasteTempMax.innerHTML = `${Math.round(forecastTemp.maxTemp[i])}`;
+  }
+
   celsius.classList.add("active");
   fahrenheit.classList.remove("active");
 }
 
 function showFahrenheit(event) {
   event.preventDefault();
+
   let temperature = document.querySelector(".actual-temp");
   let fahrenheitTemperature = Math.round((celsiusTemp * 9) / 5 + 32);
   temperature.innerHTML = fahrenheitTemperature;
+
   let minTemperature = document.querySelector("#min-temp");
   let fahrenheitMinTemperature = Math.round((celsiusMinTemp * 9) / 5 + 32);
   minTemperature.innerHTML = fahrenheitMinTemperature;
+
   let maxTemperature = document.querySelector("#max-temp");
   let fahrenheitMaxTemperature = Math.round((celsiusMaxTemp * 9) / 5 + 32);
   maxTemperature.innerHTML = fahrenheitMaxTemperature;
+
   let feelsLikeTemperature = document.querySelector("#feels-like-temp");
   let fahrenheitFeelsLikeTemp = Math.round((celsiusFeelsLike * 9) / 5 + 32);
   feelsLikeTemperature.innerHTML = fahrenheitFeelsLikeTemp;
+
+  for (let i = 1; i < 6; i++) {
+    let forecasteTempMin = document.querySelector(`#min-temp-forecast${i}`);
+    forecasteTempMin.innerHTML = `${Math.round(
+      (forecastTemp.minTemp[i] * 9) / 5 + 32
+    )}`;
+  }
+
+  for (let i = 1; i < 6; i++) {
+    let forecasteTempMax = document.querySelector(`#max-temp-forecast${i}`);
+    forecasteTempMax.innerHTML = `${Math.round(
+      (forecastTemp.maxTemp[i] * 9) / 5 + 32
+    )}`;
+  }
+
   celsius.classList.remove("active");
   fahrenheit.classList.add("active");
 }
@@ -239,3 +280,8 @@ let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", showCelsius);
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", showFahrenheit);
+
+let forecastTemp = {
+  minTemp: [],
+  maxTemp: [],
+};
